@@ -23,7 +23,7 @@ if (isset($_SESSION['role'])) {
     <!-- Navigation-->
     <nav class="navbar navbar-light bg-light static-top">
         <div class="container">
-            <a class="navbar-brand" href="#!">PERPUSTAKAAN JURNAL</a>
+            <a class="navbar-brand" href="#!" style="font-weight: bold;">E-PUS UKK</a>
             <a class="btn btn-primary" href="login.php">MASUK</a>
         </div>
     </nav>

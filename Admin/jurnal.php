@@ -65,6 +65,35 @@ else{
                             </div>
                         <?php endif ?>
                         <div class="card-body">
+                            <?php 
+                            if (isset($_POST['konfirmasi_jurnal'])) {
+
+                                $konfirmasi_data_jurnal = $koneksi->query("UPDATE jurnal set status='konfirmasi' WHERE id_jurnal='".$_POST['id_jurnal']."'");
+
+                                if ($konfirmasi_data_jurnal) {
+                                    echo "<div class='alert alert-success'>Berhasil Konfirmasi Jurnal</div>
+                                    <meta http-equiv='refresh' content='1; url= jurnal.php'/>";
+                                }
+                                else{
+                                    echo "<div class='alert alert-warning'>Gagal Konfirmasi, Silahkan coba lagi.</div>
+                                    <meta http-equiv='refresh' content='2'>";
+                                }
+                            }
+                            if (isset($_POST['hapus_jurnal'])) {
+
+                                $hapus_data_jurnal = $koneksi->query("DELETE FROM jurnal WHERE id_jurnal='".$_POST['id_jurnal']."'");
+
+                                if ($hapus_data_jurnal) {
+                                    echo "<div class='alert alert-success'>Berhasil Hapus Jurnal</div>
+                                    <meta http-equiv='refresh' content='1; url= jurnal.php'/>";
+                                }
+                                else{
+                                    echo "<div class='alert alert-warning'>Gagal Hapus, Silahkan coba lagi.</div>
+                                    <meta http-equiv='refresh' content='2'>";
+                                }
+                            }
+
+                            ?>
                             <div class="table-responsive">
                                 <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -94,9 +123,17 @@ else{
                                                 <td><?= $data['status']; ?></td>
                                                 <td>
                                                     <button data-toggle="modal" data-target="#sjurnalModal<?= $no ?>" class="btn btn-sm btn-info" href="#">LIHAT</button>
-                                                    <a class="btn btn-sm btn-primary" href="lihat.php?id=<?= $data['id_jurnal']; ?>">UBAH</a>
-                                                    <a class="btn btn-sm btn-danger" href="lihat.php?id=<?= $data['id_jurnal']; ?>">HAPUS</a>
+                                                    <?php if ($_SESSION['role']=='admin'): ?>
+                                                        <?php if ($data['status']=='belum'): ?>
+                                                            <button data-toggle="modal" data-target="#kjurnalModal<?= $no ?>" class="btn btn-sm btn-primary" href="#">KONFIRMASI</button>
+                                                            <?php include 'konfirmasi_jurnal.php'; ?>
+                                                        <?php endif ?>
+                                                    <?php elseif($_SESSION['role']=='user'): ?>
+                                                        <!-- <a class="btn btn-sm btn-primary" href="lihat.php?id=<?= $data['id_jurnal']; ?>">UBAH</a> -->
+                                                        <button data-toggle="modal" data-target="#hjurnalModal<?= $no ?>" class="btn btn-sm btn-danger" href="#">HAPUS</button>
+                                                    <?php endif ?>
                                                     <?php include 'show_jurnal.php'; ?>
+                                                    <?php include 'hapus_jurnal.php'; ?>
                                                 </td>
                                             </tr>
                                             <?php
