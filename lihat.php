@@ -23,7 +23,7 @@ if (isset($_SESSION['role'])) {
     <!-- Navigation-->
     <nav class="navbar navbar-light bg-light static-top">
         <div class="container">
-            <a class="navbar-brand" href="#!" style="font-weight: bold;">E-PUS UKK</a>
+            <a class="navbar-brand" href="index.php" style="font-weight: bold;">E-PUS UKK</a>
             <a class="btn btn-primary" href="login.php">MASUK</a>
         </div>
     </nav>
@@ -34,15 +34,17 @@ if (isset($_SESSION['role'])) {
         $status="ada";
     }
 
-    echo $domain;
-    echo "<br>";
-    echo $path;
-    echo "<br>";
-    echo $queryString;
-    echo "<br>";
-    echo $directoryPath."\..";
-    echo "<br>";
-    echo $base_url;
+    // echo $domain;
+    // echo "<br>";
+    // echo $path;
+    // echo "<br>";
+    // echo $queryString;
+    // echo "<br>";
+    // echo $directoryPath."\..";
+    // echo "<br>";
+    // echo $base_url;
+    phpinfo();
+    // $image = new Imagick();
 
     ?>
     <!-- Masthead-->
@@ -64,33 +66,7 @@ if (isset($_SESSION['role'])) {
             </div>
         </div>
         <div class="container position-relative" style="background-color: #fff; border: 5px solid #FFF;">
-            <table class="table dataTable">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Judul</th>
-                        <th>Tahun</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    $no=1;
-                    $data_jurnal = $koneksi->query("SELECT * FROM jurnal WHERE status='konfirmasi'");
-                    while($data=mysqli_fetch_array($data_jurnal)){
-                        ?>
-                        <tr>
-                            <td><?= $no ?></td>
-                            <td><?= $data['judul']; ?></td>
-                            <td><?= $data['tahun']; ?></td>
-                            <td><a class="btn btn-sm btn-info" href="lihat.php?id=<?= $data['id_jurnal']; ?>">LIHAT</a></td>
-                        </tr>
-                        <?php
-                        $no++;
-                    }
-                    ?>
-                </tbody>
-            </table>
+
         </div>
     </header>
     <!-- Bootstrap core JS-->
